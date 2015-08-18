@@ -8,6 +8,9 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -15,14 +18,22 @@ import java.awt.Color;
  */
 public class MainMenu {
     
-    public void load( ) {
+    public void load( ) throws FileNotFoundException {
         JFrame frame = new JFrame("MainMenu");
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setSize( new Dimension( 1024 , 768 ) );
+        // TODO: load default sizes from config
+        frame.setSize( new Dimension( 800 , 600 ) );
         frame.getContentPane().setBackground(Color.WHITE);
-        JLabel label = new JLabel("My label");
-        label.setText("<html><style>ul { list-style-type: none; }</style><ul> <li><b>Menu</b> <li>Pavlik</li> <li>ma</li> <li>za usima</li></ul></html>");
-        frame.add(label);
+        
+        // Getting the menu XML file and printing it out
+        // TODO: path, layout?? 
+        String content = new Scanner( new File(
+                "X:/UwAmp/www/roguelike/Beta/game/build/classes/game/menu.xml"
+        )).useDelimiter("\\Z").next();
+        JLabel menuHTML = new JLabel("menuHTML");
+        menuHTML.setText( content );
+        frame.add( menuHTML );        
+        
         frame.setVisible( true );
     }
 }

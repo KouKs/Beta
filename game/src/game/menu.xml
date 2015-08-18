@@ -1,0 +1,27 @@
+<html>
+    <style>
+        #menu {
+            margin: 0px 200px 0px 200px;
+            padding: 50px;
+            background-color: #AEA1CE;
+            border: 1px solid #8470B2;
+            cursor: pointer;
+        }
+        h1 {
+            color: #331F60;
+            padding-bottom: 5px;
+            border-bottom: 3px solid #140830;
+        }
+        p {
+            text-align: justify;
+            color: #0C0321;
+        }
+    </style>
+    <body>
+        <div id="menu">
+            <h1>Menu</h1>
+            <p>Tohle je pokus kódování ěščřžýá</p>
+            <p>Začíná to být vážné ...</p>
+        </div>
+    </body>
+</html>
