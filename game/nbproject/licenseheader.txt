@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Copyright 2015 Michael Bausano & Pavel Koch
+${licensePrefix}This is a beta version of some random game
+<#if licenseLast??>
+${licenseLast}
+</#if>
