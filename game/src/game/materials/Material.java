@@ -40,7 +40,7 @@ public enum Material {
     {
         Image img = null;
         try {
-                img = ImageIO.read( this.getClass().getResource( this.id + ".png" ) ).getScaledInstance( 32 , 32 , 2 );
+                img = ImageIO.read( this.getClass().getResource( this.id + ".png" ) );
         } catch( IOException e ) { }
         return img;
     }
