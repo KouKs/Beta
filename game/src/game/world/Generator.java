@@ -24,12 +24,12 @@ public class Generator
     {
         Map<String,Integer> room = new HashMap<>();
         
-        for( int y = 0 ; y < 10 ; y++ )
+        for( int y = 0 ; y < 15 ; y++ )
         {
             
-            for( int x = 0 ; x < 10 ; x++)
+            for( int x = 0 ; x < 15 ; x++)
             {
-                if( x == 0 || y == 0 || x == 9 || y == 9 )
+                if( x == 0 || y == 0 || x == 14 || y == 14 )
                     room.put( x + ":" + y , 0 );
                 else
                     room.put( x + ":" + y , 1 );

@@ -2,7 +2,7 @@
  * Copyright 2015 Michael Bausano & Pavel Koch
  * This is a beta version of some random game
  */
-package game.materials;
+package game.sprites;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -13,15 +13,13 @@ import javax.imageio.ImageIO;
  *
  * @author Pavel
  */
-public enum Material {
+public enum Sprite {
 
-    FLOOR (1),
-    WALL (2),
-    BRICK_WALL(3);
+    MAIN (1);
     
     private final int id;
     
-    Material( int id )
+    Sprite( int id )
     {
         this.id = id;
     }
@@ -33,7 +31,7 @@ public enum Material {
     
     public URL getUrl( )
     {
-        return this.getClass().getResource( this.id + ".png" );
+        return this.getClass().getResource( this.id + ".gif" );
     }
     
     public Image getImage( )
