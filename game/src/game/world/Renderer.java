@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Map;
 import javax.swing.JFrame;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -21,6 +23,8 @@ public class Renderer extends Canvas implements Runnable
     private final Generator g = new Generator( );
     private final JFrame frame;
     private final Dimension dimens = new Dimension(800,600);
+    
+    
     
     public Renderer( )
     {
@@ -37,13 +41,19 @@ public class Renderer extends Canvas implements Runnable
  
         //this.run( );
     }
-        
+    
     @Override
     public final void run() {
-        while( true )
-        {
-            this.render( );
-        }
+        // FPS: 10
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(
+            new TimerTask() {
+                public void run() {
+                    render();
+                }
+            }, 100, 100);
+        
+        this.render( );
     }
     
     public void render( )
