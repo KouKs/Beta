@@ -41,7 +41,7 @@ public enum Material {
     {
         Image img = null;
         try {
-                img = ImageIO.read( this.getClass().getResource( this.id + ".png" ) );
+                img = ImageIO.read( this.getUrl( ) );
         } catch( IOException e ) { }
         return img;
     }
