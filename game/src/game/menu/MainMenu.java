@@ -4,6 +4,7 @@
  */
 package game.menu;
 
+import game.world.Renderer;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ public class MainMenu extends JPanel {
     public MainMenu() {
         this.initComponents( );
         
-        this.frame = new JFrame("MainMenu");
+        this.frame = new JFrame("Main Menu");
         this.frame.setSize(dimens);
         this.frame.setMinimumSize(dimens);
         this.frame.setMaximumSize(dimens);
@@ -148,7 +149,9 @@ public class MainMenu extends JPanel {
     }//GEN-LAST:event_SettingsActionPerformed
 
     private void NewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewGameActionPerformed
-        // TODO add your handling code here:
+        this.frame.dispose( );
+        Renderer r = new Renderer( );
+        r.run( );
     }//GEN-LAST:event_NewGameActionPerformed
 
     private void LoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadActionPerformed
