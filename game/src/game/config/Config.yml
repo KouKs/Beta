@@ -1,4 +1,5 @@
 ## Game configuration
 name: Beta
-menu_width: 800
-menu_height: 600
+menu:
+  width: 800
+  height: 600
