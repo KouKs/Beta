@@ -4,15 +4,20 @@
  */
 package game.world;
 
+import game.materials.Material;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Map;
 import javax.swing.JFrame;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -48,12 +53,11 @@ public class Renderer extends Canvas implements Runnable
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(
             new TimerTask() {
+                @Override
                 public void run() {
                     render();
                 }
-            }, 100, 100);
-        
-        this.render( );
+            }, 0, 1000);
     }
     
     public void render( )
@@ -70,16 +74,19 @@ public class Renderer extends Canvas implements Runnable
         Graphics gr = bs.getDrawGraphics();        
         for( int y = 0 ; y < 10 ; y++ )
         {
-            
+            gr.setColor(Color.LIGHT_GRAY);
             for( int x = 0 ; x < 10 ; x++)
             {
                 if( room.get( x + ":" + y ) == 0 )
-                    gr.setColor(Color.BLACK);
+                    gr.drawImage( Material.WALL.getImage( ) , 32*x, 32*y , this );
                 else
-                    gr.setColor(Color.LIGHT_GRAY);
-                gr.fillRect(32*x, 32*y, 32, 32);
+                    gr.fillRect(32*x, 32*y, 32, 32);
+                
             }
+            
+            
         }
+        gr.dispose();
         bs.show();
     }
 }
