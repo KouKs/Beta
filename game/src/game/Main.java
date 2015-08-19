@@ -5,7 +5,6 @@
 package game;
 
 import game.menu.MainMenu;
-import game.spritepractice.SpritePractice;
 
 /**
  *
@@ -14,17 +13,12 @@ import game.spritepractice.SpritePractice;
 public class Main {
 
     /**
-     * @var MainMenu
-     */
-    private SpritePractice m;
-    
-    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // loading screens...
         
-        
-        SpritePractice m = new SpritePractice( );
+        MainMenu m  = new MainMenu( );
+        m.run( );
     }
 }

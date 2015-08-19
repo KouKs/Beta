@@ -11,57 +11,60 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.Canvas;
+import java.awt.Component;
+import java.awt.Graphics;
 
 /**
  *
  * @author Pavel
  */
-public class MainMenu extends Canvas {
-    private final BufferStrategy strategy;
+public class MainMenu extends Canvas implements Runnable {
     
-    // performance settings. 
-    static {
-        System.setProperty("sun.java2d.transaccel", "True");
-        // System.setProperty("sun.java2d.trace", "timestamp,log,count");
-        // System.setProperty("sun.java2d.opengl", "True");
-        System.setProperty("sun.java2d.d3d", "True");
-        System.setProperty("sun.java2d.ddforcevram", "True");
+    private final JFrame frame;
+    private final static Dimension dimens = new Dimension(800, 600);
+    private Graphics g;
+    
+    public MainMenu()
+    {
+        this.frame = new JFrame("MainMenu");
+        this.frame.setSize(dimens);
+        this.frame.setMinimumSize(dimens);
+        this.frame.setMaximumSize(dimens);
+        this.frame.setResizable(false);
+        this.frame.setLocationRelativeTo(null);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();
+        this.frame.add(this);
+        this.frame.setVisible(true);
     }
     
-    public MainMenu( ) {
-        this.createBufferStrategy(3);
-        this.strategy = this.getBufferStrategy();        
+    /**
+     * rewriting screen
+     */
+    @Override
+    public void run() 
+    {
+        while(true)
+        {
+            load();
+        }
     }
     
     public void load( ) {
-        JFrame frame = new JFrame("Main Menu");
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        // TODO: load default sizes from config
-        frame.setSize( new Dimension( 800 , 600 ) );
+
+        BufferStrategy bs = getBufferStrategy();
         
-        // the back buffer graphics object
-        Graphics2D bkG = (Graphics2D) strategy.getDrawGraphics(); 
+        if(bs==null)
+        {
+            createBufferStrategy(2);
+            return;
+        }
+        
+        Graphics g = bs.getDrawGraphics();
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, 200, 200);
+        g.dispose();
 
-        // clear the backbuffer, this could be substituted for a background
-        // image or a tiled background.
-        bkG.setPaint(Color.WHITE);
-        bkG.fillRect(0, 0, getWidth(), getHeight());
-
-        // TODO: Draw your game world, or scene or anything else here.
-
-        // Rectangle2D is a shape subclass, and the graphics object can render
-        // it, makes things a little easier.
-        bkG.setColor(Color.green.darker());
-        // bkG.fill( new Shape( ) {} );
-
-        // properly dispose of the backbuffer graphics object. Release resources
-        // and cleanup.
-        bkG.dispose();
-
-        // flip/draw the backbuffer to the canvas component.
-        strategy.show();
-
-        // synchronize with the display refresh rate.
-        Toolkit.getDefaultToolkit().sync();
+        bs.show();
     }
 }
