@@ -23,16 +23,16 @@ public class Entity {
     protected int hp, dmg, moveDirection, x, y;
     public boolean display, moving;
     
-    Entity( int id ) {
+    Entity( int id, int x, int y ) {
         this.id = id;
         this.display = true;
         this.hp = 10;
         this.dmg = 2;
         this.moving = false;
         this.moveDirection = 3;
-        this.x = 280;
-        this.y = 230;
-        this.currentImage = "walkNorth";
+        this.x = x;
+        this.y = y;
+        this.currentImage = "standSouth";
        
     }
     

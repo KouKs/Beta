@@ -4,14 +4,16 @@
  */
 package game.characters;
 
+import java.util.Map;
+
 /**
  *
  * @author Michal
  */
-public class Hero extends Entity {
-
-    public Hero(int id) {
-        super(id, 200, 200);
+public class Enemy extends Entity {
+    
+    public Enemy(int id) {
+        super(id, 200, 150);
         this.images.put( "walkNorth" , this.getImage( "walk_back" ) );
         this.images.put( "walkSouth" , this.getImage( "walk_front" ) );
         this.images.put( "walkWest" , this.getImage( "walk_side" ) );
@@ -20,6 +22,14 @@ public class Hero extends Entity {
         this.images.put( "standSouth" , this.getImage( "stand_front" ) );
         this.images.put( "standWest" , this.getImage( "stand_side" ) );
         this.images.put( "standEast" , this.getImage( "stand_side" ) );
+    }
+    
+    public void scout( Map<String,Integer> hero ) {
+        float inRadius = (float)Math.pow(hero.get("x") - this.x, 2) / (500) + (float)Math.pow(hero.get("y") - this.y, 2) / (500);
+        System.out.println(inRadius);
+        if( inRadius <= 1 ) {
+            
+        }
     }
     
 }

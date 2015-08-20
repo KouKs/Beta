@@ -6,6 +6,8 @@ package game.world;
 
 import game.materials.Material;
 import game.characters.Hero;
+import game.characters.Enemy;
+
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -34,6 +36,8 @@ public class Renderer extends Canvas implements Runnable, KeyListener
     
     private final Hero hero = new Hero( 1 );
     
+    private final Enemy enemy = new Enemy( 2 );
+    
     public Renderer( )
     {
         this.frame = new JFrame("Ingame");
@@ -51,7 +55,7 @@ public class Renderer extends Canvas implements Runnable, KeyListener
         {
             this.images.put( value.id( ) , value.getImage() );
         }
-        //this.run( );
+        
     }
     
     @Override
@@ -71,32 +75,45 @@ public class Renderer extends Canvas implements Runnable, KeyListener
     
     public void render( )
     {
-        
         BufferStrategy bs = this.getBufferStrategy();
         
-        if(bs==null)
+        if( bs == null )
         {
             this.createBufferStrategy(2);
             return;
         }
         
-        Graphics gr = bs.getDrawGraphics();        
-        for( int y = 0 ; y < 15 ; y++ )
+        Graphics gr = bs.getDrawGraphics(); 
+        
+        int sizeX = this.room.get( "sizeX" );
+        int sizeY = this.room.get( "sizeY" );
+        
+        for( int y = 0 ; y < sizeY ; y++ )
         {
-            for( int x = 0 ; x < 15 ; x++)
-            {                
-                gr.drawImage( this.images.get( this.room.get( x + ":" + y ) ) , 32*x, 32*y , this );
+            for( int x = 0 ; x < sizeX ; x++)
+            {
+                int tile = this.room.get( x + ":" + y );
+                
+                if( tile == 4 || !this.room.containsKey( x + ":" + y ) ) {
+                    continue;
+                }
+                gr.drawImage( this.images.get( tile ) , 32*x, 32*y , this );
             }
         }
-        drawSprite( gr );
+        
+        drawSprites( gr );
         
         gr.dispose();
         bs.show();
     }
     
-    public void drawSprite( Graphics gr ) {
-        Map<String,Integer> pos = this.hero.getPosition();
-        gr.drawImage( this.hero.getCurrentImage() , pos.get("x"), pos.get("y") , this );
+    public void drawSprites( Graphics gr ) {
+        Map<String,Integer> posHero = this.hero.getPosition();
+        gr.drawImage( this.hero.getCurrentImage() , posHero.get("x"), posHero.get("y") , this );
+        
+        this.enemy.scout( this.hero.getPosition() );
+        Map<String,Integer> posEnemy = this.enemy.getPosition();
+        gr.drawImage( this.enemy.getCurrentImage() , posEnemy.get("x"), posEnemy.get("y") , this );
     }
     
     @Override
