@@ -15,9 +15,9 @@ import javax.imageio.ImageIO;
  */
 public enum Material {
 
-    FLOOR (1),
-    WALL (2),
-    BRICK_WALL(3);
+    FLOOR (0),
+    WALL (1),
+    BRICK_WALL(2);
     
     private final int id;
     

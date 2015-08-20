@@ -7,7 +7,6 @@ package game.world;
 import game.materials.Material;
 import game.sprites.Sprite;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,6 +15,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import java.util.Timer;
 import java.awt.event.*;
+import java.util.HashMap;
 import java.util.TimerTask;
 
 /**
@@ -30,9 +30,9 @@ public class Renderer extends Canvas implements Runnable, KeyListener
     
     private int sy = 200, sx = 200;
     
+    private final Map<Integer,Image> images = new HashMap<>();
+    
     public Map<String,Integer> room = g.getDefaultRoom();
-    public Image wall = Material.WALL.getImage( );
-    public Image floor = Material.FLOOR.getImage( );
     
     public Renderer( )
     {
@@ -46,7 +46,11 @@ public class Renderer extends Canvas implements Runnable, KeyListener
         this.frame.add(this);
         this.frame.pack();
         this.frame.setVisible(true);
- 
+        
+        for( Material value : Material.values( ) )
+        {
+            this.images.put( value.id( ) , value.getImage() );
+        }
         //this.run( );
     }
     
@@ -79,13 +83,9 @@ public class Renderer extends Canvas implements Runnable, KeyListener
         Graphics gr = bs.getDrawGraphics();        
         for( int y = 0 ; y < 15 ; y++ )
         {
-            gr.setColor(Color.LIGHT_GRAY);
             for( int x = 0 ; x < 15 ; x++)
             {                
-                if( room.get( x + ":" + y ) == 0 )
-                    gr.drawImage( wall , 32*x, 32*y , this );
-                else
-                    gr.drawImage( floor , 32*x, 32*y , this );
+                gr.drawImage( this.images.get( this.room.get( x + ":" + y ) ) , 32*x, 32*y , this );
             }
         }
         drawSprite( gr );
@@ -99,20 +99,19 @@ public class Renderer extends Canvas implements Runnable, KeyListener
     }
     
     @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        switch( keyCode ) { 
-            case KeyEvent.VK_UP:
-                this.sy -= 1;
+    public void keyPressed(KeyEvent e) { 
+        switch( e.getKeyCode() ) { 
+            case KeyEvent.VK_W:
+                this.sy -= 2;
                 break;
-            case KeyEvent.VK_DOWN:
-                this.sy += 1;
+            case KeyEvent.VK_S:
+                this.sy += 2;
                 break;
-            case KeyEvent.VK_LEFT:
-                this.sx -= 1;
+            case KeyEvent.VK_A:
+                this.sx -= 2;
                 break;
-            case KeyEvent.VK_RIGHT :
-                this.sx += 1;
+            case KeyEvent.VK_D :
+                this.sx += 2;
                 break;
          }
     

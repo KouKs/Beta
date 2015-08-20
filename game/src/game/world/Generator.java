@@ -30,9 +30,9 @@ public class Generator
             for( int x = 0 ; x < 15 ; x++)
             {
                 if( x == 0 || y == 0 || x == 14 || y == 14 )
-                    room.put( x + ":" + y , 0 );
-                else
                     room.put( x + ":" + y , 1 );
+                else
+                    room.put( x + ":" + y , 0 );
             }
         }
         return room;
