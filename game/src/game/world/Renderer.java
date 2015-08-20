@@ -5,7 +5,7 @@
 package game.world;
 
 import game.materials.Material;
-import game.sprites.Sprite;
+import game.characters.Hero;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -28,11 +28,11 @@ public class Renderer extends Canvas implements Runnable, KeyListener
     private final JFrame frame;
     private final Dimension dimens = new Dimension(800,600);
     
-    private int sy = 200, sx = 200;
-    
     private final Map<Integer,Image> images = new HashMap<>();
     
     public Map<String,Integer> room = g.getDefaultRoom();
+    
+    private final Hero hero = new Hero( 1 );
     
     public Renderer( )
     {
@@ -95,30 +95,30 @@ public class Renderer extends Canvas implements Runnable, KeyListener
     }
     
     public void drawSprite( Graphics gr ) {
-        gr.drawImage( Sprite.MAIN.getImage( ) , sx, sy , this );
+        Map<String,Integer> pos = this.hero.getPosition();
+        gr.drawImage( this.hero.getCurrentImage() , pos.get("x"), pos.get("y") , this );
     }
     
     @Override
     public void keyPressed(KeyEvent e) { 
-        switch( e.getKeyCode() ) { 
-            case KeyEvent.VK_W:
-                this.sy -= 2;
-                break;
-            case KeyEvent.VK_S:
-                this.sy += 2;
-                break;
-            case KeyEvent.VK_A:
-                this.sx -= 2;
-                break;
-            case KeyEvent.VK_D :
-                this.sx += 2;
-                break;
-         }
-    
+        if( e.getKeyCode() == KeyEvent.VK_W ) {
+            this.hero.move( "walkNorth", 1);
+        }
+        if( e.getKeyCode() == KeyEvent.VK_S ) {
+            this.hero.move( "walkSouth", 1);
+        }
+        if( e.getKeyCode() == KeyEvent.VK_A ) {
+            this.hero.move( "walkWest", 1);
+        }
+        if( e.getKeyCode() == KeyEvent.VK_D ) {
+            this.hero.move( "walkEast", 1);
+        }     
     } 
     
     @Override
-    public void keyReleased (KeyEvent e){}
+    public void keyReleased (KeyEvent e){
+        this.hero.stop();
+    }
     @Override
     public void keyTyped (KeyEvent e){}
 }
